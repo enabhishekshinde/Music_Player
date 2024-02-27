@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music-Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="music-player">
+
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-backward"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                
+            </nav>
+            <img src="kalhonaho.jpg" alt="">
+            <h2>Kal Ho Na Ho</h2>
+            <p>Shreya Ghoshal</p>
+            <audio  id="song">
+                <source src="media/bollywood_KHNH 2003 - Kal Ho Naa Ho.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="prograss">
+
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playphuse()"><i class="fa-solid fa-play" id="conlIcon" ></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let prograss = document.getElementById("prograss");
+        let song = document.getElementById("song");
+        let contIcon = document.getElementById("conlIcon");
+
+        song.onloadedmetadata = function(){
+
+            prograss.max = song.duration;
+            prograss.value= song.currentTime;
+        }
+        function playphuse(){
+            if(contIcon.classList.contains("fa-pause")){
+                song.pause();
+                contIcon.classList.remove("fa-pause");
+                contIcon.classList.add("fa-play");
+            }
+            else{
+                song.play();
+                contIcon.classList.add("fa-pause");
+                contIcon.classList.remove("fa-play");
+            }
+        }
+       if(song.play()){
+
+        setInterval(() => {
+            prograss.value = song.currentTime;
+        }, 500);
+       }
+       prograss.onchange =function(){
+        song.play();
+        song.currentTime = prograss.value;
+        contIcon.classList.add("fa-pause");
+        contIcon.classList.remove("fa-play");
+
+       }
+
+    </script>
+</body>
+</html>
